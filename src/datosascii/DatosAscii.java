@@ -34,12 +34,15 @@ public class DatosAscii extends JFrame {
         String sNumero = "10110010";
         g.setColor(Color.red);
         for (int i = 0; i < sNumero.length(); i++) {
-            if(sNumero.substring(i,1).compareTo("1") == 0)
-            {
-                System.out.println(sNumero.substring(i,1).compareTo("1"));
-                System.out.println(i);
+            if ( Integer.parseInt(sNumero.substring(i, 1+i)) == 1 ) {
+                g.drawLine((200+ i*100), 300 , (300+i*100),300);
             }
-           
+            /*
+            else
+            {
+               g.drawLine((200+i*100), 300, (200+i*100), 400);
+            }
+            */
         }
     }
     
