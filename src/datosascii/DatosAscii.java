@@ -7,6 +7,8 @@ package datosascii;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -32,17 +34,45 @@ public class DatosAscii extends JFrame {
         }
         // Vamos a pintar "10110010" como ejemplo
         String sNumero = "10110010";
-        g.setColor(Color.red);
+        String sChar;
+        boolean bEstado = false;
+        int X = 200;
+        int Y = 400;
         for (int i = 0; i < sNumero.length(); i++) {
-            if ( Integer.parseInt(sNumero.substring(i, 1+i)) == 1 ) {
-                g.drawLine((200+ i*100), 300 , (300+i*100),300);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(DatosAscii.class.getName()).log(Level.SEVERE, null, ex);
             }
-            /*
+            g.setColor(Color.BLUE);
+            g.drawString(sNumero.charAt(i) + "", (250+i*100),200);
+            g.setColor(Color.red);
+            //Pusimos el sChar para pasar letra x letra en el if
+            sChar = sNumero.charAt(i) + "";
+            if ( sChar.compareTo("1") == 0 ) {
+                if (!bEstado){ 
+                    g.drawLine(X+1, Y, X+1,Y-100);
+                    g.drawLine(X-1, Y, X-1,Y-100);
+                    g.drawLine(X, Y, X,Y-100);
+                    Y-=100;
+                    bEstado = true;
+                }
+            }
             else
             {
-               g.drawLine((200+i*100), 300, (200+i*100), 400);
+               if(bEstado){
+                   g.drawLine(X+1,Y,X+1,Y+100);
+                   g.drawLine(X-1,Y,X-1,Y+100);
+                   g.drawLine(X,Y,X,Y+100);
+                   Y+=100;
+                   bEstado = false;
+               }
+               
             }
-            */
+            g.drawLine(X,Y+1,X+100,Y+1);
+            g.drawLine(X,Y-1,X+100,Y-1);
+            g.drawLine(X,Y,X+100,Y);
+            X+=100;
         }
     }
     
