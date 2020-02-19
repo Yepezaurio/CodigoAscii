@@ -41,7 +41,7 @@ public class DatosAscii extends JFrame {
             g.drawLine((200+i*100),200, (200+i*100), 600);
         }
        
-        int option = 3;
+        int option = 4;
         //Vamos a crear un switch para tener diferentes gráficados
         switch(option){
             case 1:
@@ -52,6 +52,9 @@ public class DatosAscii extends JFrame {
                 break;
             case 3:
                 rzUnipolar(g);
+                break;
+            case 4:
+                Manchester(g);
                 break;
         }
         
@@ -65,6 +68,8 @@ public class DatosAscii extends JFrame {
     // nrz = no retorna zero
     // rz = retorna zero
     //Este metodo grafica lo anterior hecho es de 1 a 0
+    
+    //Metodos con diferentes graficaciones.
     public void nrzUnipolar(Graphics g){
         for (int i = 0; i < sNumero.length(); i++) {
             //Aquí Pusimos un Sleep nos sirve para pintar las lineas de forma lenta ( 1 seg).
@@ -218,6 +223,69 @@ public class DatosAscii extends JFrame {
             
             //Pintamos la linea de transición
             
+        }
+    }
+    
+    
+    public void Manchester(Graphics g)
+    {
+        
+        
+       for (int i = 0; i < sNumero.length(); i++) {
+            //Aquí Pusimos un Sleep nos sirve para pintar las lineas de forma lenta ( 1 seg).
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(DatosAscii.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            g.setColor(Color.BLUE);
+            g.drawString(sNumero.charAt(i) + "", (250+i*100),200); //Aquí pintamos el Array o sNumero
+            g.setColor(Color.red);
+            //Pusimos el sChar para pasar letra x letra en el if
+            sChar = sNumero.charAt(i) + "";
+            /*
+            Comparamos el primer caracter de nuestro arreglo si es 1 o 0.
+            Entra a nuestro IF y hace una transicion si estaba en 0 para ello
+            anteriormente.
+            */
+            
+            if ( sChar.compareTo("1") == 0 ) {
+                    //Pintamos las lineas Verticales en este codigo
+                
+                if(bEstado)
+                {
+                    g.drawLine(X, Y, X, Y+200);
+                }
+                if(!bEstado)
+                {
+                  Y-=100;
+                  bEstado=true;
+                }
+                
+                g.drawLine(X, Y+200, X+50, Y+200);
+                g.drawLine(X+50,Y+200, X+50, Y);
+                g.drawLine(X+50,Y, X+100, Y);
+                X+=100;
+              
+                
+            }
+            else
+            {   
+                if(!bEstado)
+                {
+                     g.drawLine(X, Y+100, X, Y-100);
+                }
+                if(bEstado)
+                {
+                   Y+=100;
+                   bEstado=false;
+                }
+                g.drawLine(X,Y-100,X+50,Y-100);
+                g.drawLine(X+50,Y-100,X+50, Y+100);
+                g.drawLine(X+50,Y+100, X+100, Y+100);
+                X+=100;
+            }
+          
         }
     }
 }
