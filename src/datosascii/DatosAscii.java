@@ -10,12 +10,17 @@ import java.awt.Graphics;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
  * @author we_ro
  */
+
+
+
 public class DatosAscii extends JFrame {
+    
     // Vamos a pintar "10110010" como ejemplo
     String sNumero = "10110010";
     String sChar;
@@ -24,6 +29,10 @@ public class DatosAscii extends JFrame {
     //Iniciamos variables X y Y para tener control de las posiciones a pintar
     int X = 200;
     int Y = 400;
+    
+    //Para obtener los datos a gráficar por medio de una pequeña interfaz gráfica
+    
+    
     
     public DatosAscii()
     {
@@ -56,15 +65,23 @@ public class DatosAscii extends JFrame {
             case 4:
                 Manchester(g);
                 break;
+            case 5:
+                break;
+             
         }
         
         
     }
     
     public static void main(String[] args) {
-        DatosAscii ascii = new DatosAscii();
-        ascii.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
+        InterfazSencilla interfaz = new InterfazSencilla();
+        interfaz.setVisible(true);
+        
+        
     }
+    
+    
     // nrz = no retorna zero
     // rz = retorna zero
     //Este metodo grafica lo anterior hecho es de 1 a 0
@@ -243,19 +260,15 @@ public class DatosAscii extends JFrame {
             g.setColor(Color.red);
             //Pusimos el sChar para pasar letra x letra en el if
             sChar = sNumero.charAt(i) + "";
-            /*
-            Comparamos el primer caracter de nuestro arreglo si es 1 o 0.
-            Entra a nuestro IF y hace una transicion si estaba en 0 para ello
-            anteriormente.
-            */
             
+            //Comparamos si es 1 o 0 
             if ( sChar.compareTo("1") == 0 ) {
-                    //Pintamos las lineas Verticales en este codigo
-                
+                //Nos va ayudar si es verdadero va pintar una linea hacia abajo 
                 if(bEstado)
                 {
                     g.drawLine(X, Y, X, Y+200);
                 }
+                //Si era falso nos va ayudar a avanzar primero y luego subir.
                 if(!bEstado)
                 {
                   Y-=100;
